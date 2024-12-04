@@ -33,6 +33,17 @@
         <p>{{ post.content }}</p> <!-- Full content of the post -->
     </div>
 
+    <!-- Displaying tags associated with the post -->
+    <div class="post-tags">
+        <p><strong>Tags:</strong> 
+            {% for tag in post.tags.all %}
+                <span class="tag">{{ tag.name }}</span>{% if not forloop.last %}, {% endif %}
+            {% empty %}
+                <span>No tags available</span>
+            {% endfor %}
+        </p>
+    </div>
+
     <a href="{% url 'posts' %}">Back to Posts</a> <!-- Link to go back to the post list -->
 
     <!-- Comment Actions Section -->

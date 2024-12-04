@@ -23,8 +23,16 @@
 
     <form method="POST" action="{% url 'post-create' %}">
         {% csrf_token %}
-        {{ form.as_p }} <!-- Automatically render the form fields -->
         
+        <!-- Automatically render the form fields -->
+        {{ form.as_p }}
+
+        <!-- Manually rendering the 'tags' field for better control -->
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            {{ form.tags }}  <!-- This renders the tags field -->
+        </div>
+
         <button type="submit">Create Post</button>
     </form>
 
