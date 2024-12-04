@@ -1,6 +1,7 @@
 from django import forms 
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser, Post, Comment
+from django_taggit.forms import TagWidget  # Import the TagWidget to handle tags
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField()
@@ -18,10 +19,13 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'email', 'picture', 'bio')       
+
 class PostForm(forms.ModelForm):
+    tags = forms.CharField(widget=TagWidget(), required=False)  # Add 'tags' field with TagWidget
+    
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'tags']  # Add 'tags' field to form
 
 class CommentForm(forms.ModelForm):
     class Meta:
