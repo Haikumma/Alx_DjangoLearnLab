@@ -214,3 +214,20 @@ class CommentDeleteView(UpdateView, UserPassesTestMixin, LoginRequiredMixin):
         """
         post_id = self.kwargs['post_id']
         return reverse_lazy('posts', args=[post_id])
+        def search(request):
+    query = request.GET.get('q')
+    if query:
+        posts = Post.objects.filter(
+            Q(title__icontains=query) | 
+            Q(content__icontains=query) | 
+            Q(tags__name__icontains=query)
+        ).distinct()
+    else:
+        posts = Post.objects.all()
+    return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+    def posts_by_tag(request, tag_name):
+    posts = Post.objects.filter(tags__name=tag_name)
+    return render(request, 'posts_by_tag.html', {'posts': posts, 'tag': tag_name})
+    def posts_by_tag(request, tag_name):
+    posts = Post.objects.filter(tags__name=tag_name)
+    return render(request, 'blog/posts_by_tag.html', {'posts': posts, 'tag_name': tag_name})

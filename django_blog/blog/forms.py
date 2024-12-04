@@ -21,13 +21,21 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ('username', 'email', 'picture', 'bio')       
 
 class PostForm(forms.ModelForm):
-    tags = forms.CharField(widget=TagWidget(), required=False)  # Add 'tags' field with TagWidget
-    
+    tags = forms.CharField(widget=TagWidget(), required=False)  # Tag input field
+
     class Meta:
         model = Post
-        fields = ['title', 'content', 'tags']  # Add 'tags' field to form
-
+        fields = ['title', 'content', 'tags']  # Add tags to form fields
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
+        from taggit.managers import TaggableManager
+
+class Post(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    tags = TaggableManager()  # Adding taggable manager to handle tags
+
+    def __str__(self):
+        return self.title

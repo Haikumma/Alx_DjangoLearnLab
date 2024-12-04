@@ -37,7 +37,7 @@
     <div class="post-tags">
         <p><strong>Tags:</strong> 
             {% for tag in post.tags.all %}
-                <span class="tag">{{ tag.name }}</span>{% if not forloop.last %}, {% endif %}
+                <a href="{% url 'posts_by_tag' tag.name %}" class="tag">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
             {% empty %}
                 <span>No tags available</span>
             {% endfor %}
@@ -79,3 +79,4 @@
 
 </body>
 </html>
+

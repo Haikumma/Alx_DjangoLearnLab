@@ -35,4 +35,10 @@ urlpatterns += [
     path('post/<int:pk>/comment/<int:pk>/update/', views.CommentUpdateView, name='comment-update'),
     # Delete comment view url
     path('post/<int:pk>/comment/<int:pk>/delete/', views.CommentDeleteView, name='comment-delete'),
+    path('tag/<str:tag_name>/', posts_by_tag, name='posts_by_tag'),
+    # other URLs...
+    path('search/', views.search, name='search'),  # URL for search functionality
+    path('tags/<str:tag_name>/', views.posts_by_tag, name='posts_by_tag'),  # URL for posts by tag
 ]
+
+    
