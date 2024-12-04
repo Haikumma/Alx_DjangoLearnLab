@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'posts' %}">Posts</a></li>
+            <li><a href="{% url 'posts' pk=1 %}">Post Details</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="content">
+    <h1>Create a New Post</h1>
+
+    <form method="POST" action="{% url 'post-create' %}">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Automatically render the form fields -->
+        
+        <button type="submit">Create Post</button>
+    </form>
+
+    <a href="{% url 'posts' %}">Back to Posts</a> <!-- Link to go back to the post list -->
+</div>
+
+<footer>
+    <p>&copy; 2024 Blog Website</p>
+</footer>
+
+</body>
+</html>

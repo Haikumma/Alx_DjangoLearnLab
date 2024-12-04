@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li><a href="{% url 'posts' pk=1 %}">Post Details</a></li>
+                <li><a href="{% url 'posts/new' %}">Create Post</a></li>
+                <li><a href="{% url 'my-posts' %}">My Posts</a></li>            
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li><a href="{% url 'post-detail' pk=1 %}">Post Details</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+        </ul>
+    </nav>
+</header>
+
+
+
+<div class="content">
+    <h1>All Posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2><a href="{% url 'post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                <p>{{ post.content|truncatewords:20 }}</p> <!-- Display a snippet of the post's content -->
+                <a href="{% url 'post-detail' pk=post.pk %}">Read more</a> <!-- Link to full post -->
+            </li>
+        {% empty %}
+            <li>No posts available.</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<footer>
+    <p>&copy; 2024 Blog Website</p>
+</footer>
+
+</body>
+</html>

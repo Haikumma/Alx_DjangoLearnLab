@@ -1,16 +1,29 @@
-# blog/forms.py
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django import forms 
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .models import CustomUser, Post, Comment
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField()
+    picture = forms.ImageField()
+    bio = forms.Textarea()
+
+    class Meta(UserCreationForm.Meta):
+        model = CustomUser
+        fields = ('username', 'email', 'picture', 'bio')  
+
+
+class CustomUserChangeForm(UserChangeForm):
+    bio = forms.CharField(max_length=500)  
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-
-class UserProfileForm(forms.ModelForm):
+        model = CustomUser
+        fields = ('username', 'email', 'picture', 'bio')       
+class PostForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['email', 'first_name', 'last_name']
+        model = Post
+        fields = ['title', 'content']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
