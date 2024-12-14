@@ -1,9 +1,13 @@
-from rest_framework import routers
-from django.urls import path, include
-from . import views
+from rest_framework.routers import DefaultRouter
+from .views import PostViewSet, CommentViewSet
+from django.urls import path
 
-router = routers.DefaultRouter()
-router.register(r'posts', views.PostViewSet)
-router.register(r'comments', views.CommentViewSet)
+router = DefaultRouter()
+router.register(r'posts', PostViewSet)
+router.register(r'comments', CommentViewSet)
 
-urlpatterns = router
+
+urlpatterns = router.urls
+# feed/
+# /posts/<int:pk>/like/
+# /posts/<int:pk>/unlike/
