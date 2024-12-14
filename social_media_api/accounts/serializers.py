@@ -1,19 +1,17 @@
+from rest_framework.serializers import ModelSerializer
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
-from rest_framework.authtoken.models import Token
+User = get_user_model()
 
-class RegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)  # Ensure this is a CharField
+# from rest_framework.authtoken.models import Token
+# serializers.CharField()
+# serializers.CharField()
+# get_user_model().objects.create_user
+# Token.objects.create
 
+# serializer to handle user data conversion (serializing and deserializing)
+class UserSerializer(ModelSerializer):
     class Meta:
-        model = get_user_model()  # Use the correct User model
-        fields = ['username', 'email', 'password']
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name', 'bio', 'profile_picture']
 
-    def create(self, validated_data):
-        user = get_user_model().objects.create_user(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            password=validated_data['password']
-        )
-        token = Token.objects.create(user=user)
-        return {'user': user, 'token': token.key}
+           

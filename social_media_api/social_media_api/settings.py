@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ko4)(to&#hziz@zh3i1vy=x6xw-j$^hwqufu5cwu#-j(p5)c0k'
+SECRET_KEY = 'django-insecure-6u7d=p7e!9-0h!f*$xgt+1$hy9f^q6p7x$#@te6gqc#q)n&ay7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',         # Add Django REST Framework
-    'accounts',  
-    'rest_framework.authtoken'
+    'rest_framework',
+    'accounts',
+    'rest_framework.authtoken',
+    'posts',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -125,5 +127,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
-
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
