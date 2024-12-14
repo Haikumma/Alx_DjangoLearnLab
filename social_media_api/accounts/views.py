@@ -42,5 +42,5 @@ class LogoutView(APIView):
             
 
     
-#Token.objects.create
+
 # Create your views here.
