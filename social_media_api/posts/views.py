@@ -17,10 +17,7 @@ class PostViewSet(viewsets.ModelViewSet):
     filterset_fields = ['title', 'content']
     search_fields = ['title', 'content']
 
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
-    serializer_class = PostSerializer
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated, IsAuthor]
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['title', 'content']
-    search_fields = ['title', 'content']
