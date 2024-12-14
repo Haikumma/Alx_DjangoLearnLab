@@ -6,3 +6,6 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email')
 
+#from rest_framework.authtoken.models import Token
+#serializers.CharField()
+#get_user_model().objects.create_user
